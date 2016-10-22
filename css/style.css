@@ -65,50 +65,50 @@ html, body, .brackets {
 			.brackets div.bracketbox > span.teamc {
 				bottom: 1px;
 			}
-			.brackets > .group2 {
+			.brackets > .roundId2 {
 				height: 260px;
 			}
-			.brackets > .group2 > div {
+			.brackets > .roundId2 > div {
 				width: 49%;
 			}
-			.brackets > .group3 {
+			.brackets > .roundId3 {
 				height: 320px;
 			}
-			.brackets > .group3 > div {
+			.brackets > .roundId3 > div {
 				width: 32.7%;
 			}
-			.brackets > .group4 > div {
+			.brackets > .roundId4 > div {
 				width: 24.5%;
 			}
-			.brackets > .group5 > div {
+			.brackets > .roundId5 > div {
 				width: 19.6%;
 			}
-			.brackets > .group6 {
+			.brackets > .roundId6 {
 				height: 2000px;
 			}
-			.brackets > .group6 > div {
+			.brackets > .roundId6 > div {
 				width: 16.3%;
 			}
-			.brackets > div > .r1 > div {
+			.brackets > div > .columnId1 > div {
 				height: 60px;
 			}
-			.brackets > div > .r2 > div {
+			.brackets > div > .columnId2 > div {
 				margin: 80px 0 110px 0;
 				height: 110px;
 			}
-			.brackets > div > .r3 > div {
+			.brackets > div > .columnId3 > div {
 				margin: 135px 0 220px 0;
 				height: 220px;
 			}
-			.brackets > div > .r4 > div {
+			.brackets > div > .columnId4 > div {
 				margin: 250px 0 445px 0;
 				height: 445px;
 			}
-			.brackets > div > .r5 > div {
+			.brackets > div > .columnId5 > div {
 				margin: 460px 0 0 0;
 				height: 900px;
 			}
-			.brackets > div > .r6 > div {
+			.brackets > div > .columnId6 > div {
 				margin: 900px 0 0 0;
 			}
 			.brackets div.final > div.bracketbox {
@@ -116,11 +116,11 @@ html, body, .brackets {
 				border-right: 0px;
 				height: 0px;
 			}
-			.brackets > div > .r4 > div.drop {
+			.brackets > div > .columnId4 > div.drop {
 				height: 180px;
 				margin-bottom: 0px;
 			}
-			.brackets > div > .r5 > div.final.drop {
+			.brackets > div > .columnId5 > div.final.drop {
 				margin-top: 345px;
 				margin-bottom: 0px;
 				height: 1px;

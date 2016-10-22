@@ -24,7 +24,7 @@
 								<input type="text" class="form-control" id="playerName" placeholder="Enter Name">
 							</div>
 							<button type="button" class="btn btn-default" id="addPlayerButton" onclick="addPlayer()">Add Player</button>
-							<button type="button" class="btn" id="addPlayerButton" onclick="start()">Start</button>
+							<button type="button" class="btn btn-primary" id="addPlayerButton" onclick="generateBracket()">Start</button>
 						</form>
 					</div>
 				</div>
@@ -33,20 +33,20 @@
 					<label id="playerCount">0</label><span> Total Players</span>
 					<div class="col-md-4"></div>
 					<div class="col-xs col-md-4">
-						<ul class="list-group borderless" id="playerList" style="max-height: 300px; overflow: no;"></ul>
+						<ul class="list-group borderless" id="playerList">
+						</ul>
 					</div>
 				</div>
 			</div>
 			<!-- brackets -->
-			<div class="brackets" id="brackets">
-		</div>
+			<div class="row brackets" id="brackets">
+			</div>
 		</div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
     	<!-- Include all compiled plugins (below), or include individual files as needed -->
  	   <script src="js/bootstrap/bootstrap.min.js"></script>
  	   <script src="js/controller.js"></script>
- 	    <script src="http://underscorejs.org/underscore-min.js"></script>
+ 	   <script src="http://underscorejs.org/underscore-min.js"></script>
 	</body>
 </html>
