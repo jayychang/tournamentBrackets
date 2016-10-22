@@ -1,5 +1,4 @@
 var playerId = 0;
-// var bracketCount = 0;
 var winner = 1;
 var baseBrackets = [32,16,8,4,2]; // brackets with "perfect" proportions (full fields, no byes)
 
@@ -31,7 +30,7 @@ function addPlayer() {
 	button.setAttribute("type", "button");
 	button.setAttribute("onclick", "removePlayer(this.parentNode.id)");
 	button.classList.add("btn");
-	button.classList.add("btn-default");
+	button.classList.add("btn-danger");
 	button.classList.add("pull-right");
 	button.classList.add("btn-xs");
 
@@ -110,31 +109,40 @@ function getBracket(count) {
 		teamCount++;
 	}
 
-	console.log(pairs);
-	console.log(byes);
-	drawBracket(pairs, byes, closest)
+	// console.log(pairs);
+	// console.log(byes);
+	drawBracket(participants, pairs, byes, closest)
 }
 
-function drawBracket(pairs, byes, seeds) {
+function drawBracket(players, pairs, byes, seeds) {
 	console.log("draw function");
-	console.log(pairs);
-	console.log(byes);
+	// console.log(pairs);
+	// console.log(byes);
 	// console.log(totalRounds);
 
 	var totalRounds = Math.log2(seeds);
 	var roundMatches = seeds/2;
-
-	var pairCount = pairs.length;
+	var playerCount = players.length - 1;
+	var pairCount = pairs.length - 1;
+	var byeCount = byes.length;
 	var brackets = document.getElementById("brackets");
-	var rounds = totalRounds + winner;
+	var rounds = totalRounds + 1;
 	var roundId = "roundId" + rounds;
 
 	var layout = document.createElement("div");
 	layout.classList.add(roundId);
 	brackets.appendChild(layout);
-
+	var i;
 	var bracketCounts = Math.max(seeds/2, 1);
-	for (i=1; i <= rounds; i++) {
+
+	var bracketId = 1;
+	var prevBracketColumnId = 1;
+
+	for (i=1; i <= totalRounds; i++) {
+
+		bracketId = Math.pow(10, i) + prevBracketColumnId;
+		prevBracketColumnId = bracketId;
+
 		console.log("bracket");
 		console.log(bracketCounts);
 		console.log(rounds);
@@ -147,17 +155,82 @@ function drawBracket(pairs, byes, seeds) {
 
 		// add the bracket itself now
 		for (j = 0; j < bracketCounts; j++) {
-			bracketLayout = document.createElement("div");
+			var bracketLayout = document.createElement("div");
 			column.appendChild(bracketLayout);
 
-			var bracketBox = document.createElement("div");
-			bracketBox.classList.add("bracketbox");
-			bracketLayout.appendChild(bracketBox);
-		}
-		// pairCount--;
+			if (byeCount <= 0) {
+				var bracketBox = document.createElement("div");
+				bracketBox.classList.add("bracketbox");
+				bracketLayout.appendChild(bracketBox);
 
+				var buttonLayout = document.createElement("span");
+				buttonLayout.classList.add("buttonLayout");
+				bracketBox.appendChild(buttonLayout);
+
+				var player1 = document.createElement("button");
+				player1.setAttribute("id", bracketId);
+				bracketId++;
+				player1.classList.add("player1");
+				player1.classList.add("btn");
+				player1.classList.add("btn-default");
+				if(playerCount >= 0) {
+					player1.innerHTML = players[playerCount];
+					playerCount--;
+				} else {
+					player1.innerHTML = "??????";
+				}
+				buttonLayout.appendChild(player1);
+				
+				//middle margin
+				var spacing = document.createElement("div");
+				spacing.classList.add("buttonSpace");
+				buttonLayout.appendChild(spacing);
+
+				var player2 = document.createElement("button");
+				player2.setAttribute("id", bracketId);
+				bracketId++;
+				player2.classList.add("player2");
+				player2.classList.add("btn");
+				player2.classList.add("btn-default");
+				if(playerCount >= 0) {
+					player2.innerHTML = players[playerCount];
+					playerCount--;
+				} else {
+					player2.innerHTML = "??????";
+				}					
+				buttonLayout.appendChild(player2);
+				
+			} else {
+				byeCount--;
+				bracketId+=2;
+			}
+		}
 		bracketCounts = Math.max(bracketCounts/2, 1);
 	}
+	var columnId = "columnId"+i;
+	var column = document.createElement("div");
+	column.classList.add(columnId);
+	layout.appendChild(column);
+	
+	var bracketLayout = document.createElement("div");
+	bracketLayout.classList.add("final");
+	column.appendChild(bracketLayout);
+
+	var bracketBox = document.createElement("div");
+	bracketBox.classList.add("bracketbox");
+	bracketLayout.appendChild(bracketBox);
+
+	bracketId = Math.pow(10, i) + prevBracketColumnId;
+	prevBracketId = bracketId;
+
+	var winner = document.createElement("button");
+	winner.setAttribute("id", bracketId);
+	winner.classList.add("winner");
+	winner.classList.add("btn");
+	winner.classList.add("btn-default");
+	winner.innerHTML = "??????";
+	bracketBox.appendChild(winner);
+
 }
 
 // Helper functions
