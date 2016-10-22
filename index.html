@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X_UA_Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	    <link href="css/style.css" rel="stylesheet">
+	    <title>Bracket</title>
+	</head>
+	<body>
+		<div class="jumbotron text-center">
+			<h1>Tournament Bracket</h1>
+		</div>
+		<div class="container">
+			<!-- form -->
+			<div id="generate">
+				<div class="row">
+					<div class="col-md-3">
+					</div>
+					<div class="col-xs col-md-6 text-center">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<input type="text" class="form-control" id="playerName" placeholder="Enter Name">
+							</div>
+							<button type="button" class="btn btn-default" id="addPlayerButton" onclick="addPlayer()">Add Player</button>
+							<button type="button" class="btn" id="addPlayerButton" onclick="start()">Start</button>
+						</form>
+					</div>
+				</div>
+				<!-- list -->
+				<div class="row">
+					<label id="playerCount">0</label><span> Total Players</span>
+					<div class="col-md-4"></div>
+					<div class="col-xs col-md-4">
+						<ul class="list-group borderless" id="playerList" style="max-height: 300px; overflow: no;"></ul>
+					</div>
+				</div>
+			</div>
+			<!-- brackets -->
+			<div class="brackets" id="brackets">
+		</div>
+		</div>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    	<!-- Include all compiled plugins (below), or include individual files as needed -->
+ 	   <script src="js/bootstrap/bootstrap.min.js"></script>
+ 	   <script src="js/controller.js"></script>
+ 	    <script src="http://underscorejs.org/underscore-min.js"></script>
+	</body>
+</html>
