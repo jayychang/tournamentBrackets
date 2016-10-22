@@ -1,5 +1,5 @@
 var playerId = 0;
-var bracketCount = 0;
+// var bracketCount = 0;
 var winner = 1;
 var baseBrackets = [32,16,8,4,2]; // brackets with "perfect" proportions (full fields, no byes)
 
@@ -129,38 +129,35 @@ function drawBracket(pairs, byes, seeds) {
 	var rounds = totalRounds + winner;
 	var roundId = "roundId" + rounds;
 
-	for (i=1; i <= rounds; i++) {
-
 	var layout = document.createElement("div");
 	layout.classList.add(roundId);
 	brackets.appendChild(layout);
 
-	for (i=1; i < seeds; i++) {
+	var bracketCounts = Math.max(seeds/2, 1);
+	for (i=1; i <= rounds; i++) {
+		console.log("bracket");
+		console.log(bracketCounts);
+		console.log(rounds);
+
 		var columnId = "columnId"+i;
 
 		var column = document.createElement("div");
 		column.classList.add(columnId);
 		layout.appendChild(column);
-		console.log(roundMatches);
-		var count = roundMatches;
-		// for (i=roundMatches; roundMatches > 0; i--) {
-			while( count > 0) {
-		bracketLayout = document.createElement("div");
-		column.appendChild(bracketLayout);
 
-		var bracketBox = document.createElement("div");
-		bracketBox.classList.add("bracketbox");
-		bracketLayout.appendChild(bracketBox);
-		// pairCount--;
-		count = count - 1;
+		// add the bracket itself now
+		for (j = 0; j < bracketCounts; j++) {
+			bracketLayout = document.createElement("div");
+			column.appendChild(bracketLayout);
+
+			var bracketBox = document.createElement("div");
+			bracketBox.classList.add("bracketbox");
+			bracketLayout.appendChild(bracketBox);
 		}
-		roundMatches /= 2;
-		// column.classList.add(roundId);
-		// column.classList.add("col-xs");
-		// column.classList.add("col-md-2");
-		// brackets.appendChild(column);
+		// pairCount--;
+
+		bracketCounts = Math.max(bracketCounts/2, 1);
 	}
-}
 }
 
 // Helper functions
@@ -189,14 +186,13 @@ function getParticipants() {
 
 function getClosest(num) {
 	var index = baseBrackets[0];
-	var diff = Math.abs (num - index);
-		for (var val = 0; val < baseBrackets.length; val++) {
-			var newdiff = Math.abs (num - baseBrackets[val]);
-			if (newdiff < diff) {
-				diff = newdiff;
-				index = baseBrackets[val];
-			} 
+	for (i = 0; i < baseBrackets.length; i++) {
+		if (baseBrackets[i] >= num) {
+			index = baseBrackets[i];
+		} else {
+			break;
 		}
+	}
 	return index;
 }
 
