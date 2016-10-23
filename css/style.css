@@ -3,13 +3,12 @@
 }
 
 ul li {
-    /*border: 1px solid #dcdcdc;*/
-    width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  -ms-text-overflow: ellipses;
-  -o-text-overflow: ellipses;
-  text-overflow: ellipsis;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	-ms-text-overflow: ellipses;
+	-o-text-overflow: ellipses;
+	text-overflow: ellipsis;
 }
 
 html, body, .brackets {
@@ -17,6 +16,7 @@ html, body, .brackets {
 				min-height: 100%;
 				font-family: "Arial", sans-serif;
 			}
+
 			.metroBtn {
 				background-color: #2E7BCC;
 				color: #fff;
@@ -26,17 +26,21 @@ html, body, .brackets {
 				margin-bottom: 30px;
 				cursor: pointer;
 			}
+
 			.brackets > div {
 				vertical-align: top;
 				clear: both;
 			}
+
 			.brackets > div > div {
 				float: left;
 				height: 100%;
 			}
+
 			.brackets > div > div > div {
 				margin: 50px 0;
 			}
+
 			.brackets div.bracketbox {
 				position: relative;
 				width: 100%; height: 100%;
@@ -44,6 +48,7 @@ html, body, .brackets {
 				border-right: 1px solid #555;
 				border-bottom: 1px solid #555;
 			}
+
 			.brackets div.bracketbox > span.info {
 				position: absolute;
 				top: 25%;
@@ -51,11 +56,13 @@ html, body, .brackets {
 				font-size: 0.8em;
 				color: #BBB;
 			}
+
 			.brackets div.bracketbox > span {
 				position: absolute;
 				left: 5px;
 				font-size: 0.85em;
 			}
+
 			.player1 {
 				width: 100%;
 				height: 40px;
@@ -63,15 +70,15 @@ html, body, .brackets {
 				padding: 0px;
 			}
 
-			.buttonSpace {
-				width: 100%;
-				height: 100%;
-			}
 			.player2 {
 				width: 100%;
 				height: 40px;
 				margin-top: -55px; 
 				padding: 0px;
+			}
+
+			.leftBracket {
+				margin-left: -5%;
 			}
 
 			.winner {
@@ -81,6 +88,12 @@ html, body, .brackets {
 				margin-top: -20px;
 				margin-left: 60%;
 			}
+
+			.buttonSpace {
+				width: 100%;
+				height: 100%;
+			}
+
 			.buttonLayout {
 				display: inline-block;
     			vertical-align: middle;
@@ -91,63 +104,79 @@ html, body, .brackets {
 			.brackets > .roundId2 {
 				height: 260px;
 			}
+
 			.brackets > .roundId2 > div {
 				width: 49%;
 			}
+
 			.brackets > .roundId3 {
 				height: 320px;
 			}
+
 			.brackets > .roundId3 > div {
 				width: 32.7%;
 			}
+
 			.brackets > .roundId4 > div {
 				width: 24.5%;
 			}
+
 			.brackets > .roundId5 > div {
 				width: 19.6%;
 			}
+
 			.brackets > .roundId6 {
 				height: 2000px;
 			}
+
 			.brackets > .roundId6 > div {
 				width: 16.3%;
 			}
+
 			.brackets > div > .columnId1 > div {
 				height: 60px;
 			}
+
 			.brackets > div > .columnId2 > div {
 				margin: 80px 0 110px 0;
 				height: 110px;
 			}
+
 			.brackets > div > .columnId3 > div {
 				margin: 135px 0 220px 0;
 				height: 220px;
 			}
+
 			.brackets > div > .columnId4 > div {
 				margin: 250px 0 445px 0;
 				height: 445px;
 			}
+
 			.brackets > div > .columnId5 > div {
 				margin: 460px 0 0 0;
 				height: 900px;
 			}
+
 			.brackets > div > .columnId6 > div {
 				margin: 900px 0 0 0;
 			}
+
 			.brackets div.final > div.bracketbox {
 				border-top: 0px;
-/*				border-right: 0px;
-*/				height: 0px;
+				height: 0px;
 			}
+
 			.brackets > div > .columnId4 > div.drop {
 				height: 180px;
 				margin-bottom: 0px;
 			}
+
 			.brackets > div > .columnId5 > div.final.drop {
 				margin-top: 345px;
 				margin-bottom: 0px;
 				height: 1px;
 			}
+
 			.brackets > div > div > div:last-of-type {
 				margin-bottom: 0px;
 			}

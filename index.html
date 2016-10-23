@@ -19,13 +19,11 @@
 					<div class="col-md-3">
 					</div>
 					<div class="col-xs col-md-6 text-center">
-						<form class="form-horizontal">
-							<div class="form-group">
-								<input type="text" class="form-control" id="playerName" placeholder="Enter Name">
-							</div>
-							<button type="button" class="btn btn-default" id="addPlayerButton" onclick="addPlayer()">Add Player</button>
-							<button type="button" class="btn btn-primary" id="addPlayerButton" onclick="generateBracket()">Start</button>
-						</form>
+						<div class="form-group">
+							<input type="text" class="form-control" id="playerName" placeholder="Enter Name">
+						</div>
+						<button type="button" class="btn btn-default" id="addPlayerButton" onclick="addPlayer()">Add Player</button>
+						<button type="button" class="btn btn-primary" id="addPlayerButton" onclick="generateBracket()">Start</button>
 					</div>
 				</div>
 				<!-- list -->
@@ -42,11 +40,11 @@
 			<div class="row brackets" id="brackets">
 			</div>
 		</div>
+
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     	<!-- Include all compiled plugins (below), or include individual files as needed -->
  	   <script src="js/bootstrap/bootstrap.min.js"></script>
  	   <script src="js/controller.js"></script>
- 	   <script src="http://underscorejs.org/underscore-min.js"></script>
 	</body>
 </html>
