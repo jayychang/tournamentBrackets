@@ -1,5 +1,7 @@
 var playerId = 0;
 var winner = 1;
+var bracketId;
+var roundI;
 var baseBrackets = [32,16,8,4,2]; // brackets with "perfect" proportions (full fields, no byes)
 
 // Actions
@@ -88,7 +90,6 @@ function playerAdvance(id) {
 			nextBracket.innerHTML = winnerName;
 		}
 	}
-
 }
 
 function generateBracket() {
@@ -142,8 +143,7 @@ function getBracket(count) {
 		})
 		teamCount++;
 	}
-
-	drawBracket(participants, pairs, byes, closest)
+	drawBracket(participants, pairs, byes, closest);
 }
 
 function drawBracket(players, pairs, byes, seeds) {
@@ -153,6 +153,7 @@ function drawBracket(players, pairs, byes, seeds) {
 	var playerCount = players.length - 1;
 	var pairCount = pairs.length - 1;
 	var byeCount = byes.length;
+
 	var brackets = document.getElementById("brackets");
 	var rounds = totalRounds + 1;
 	var roundId = "roundId" + rounds;
@@ -160,84 +161,61 @@ function drawBracket(players, pairs, byes, seeds) {
 	var layout = document.createElement("div");
 	layout.classList.add(roundId);
 	brackets.appendChild(layout);
-	var i;
 	var bracketCounts = Math.max(seeds/2, 1);
 
-	var bracketId = 1;
+	var byePositions = byePosition(byeCount, bracketCounts);
+
 	var prevBracketColumnId = 1;
 
-	for (i=1; i <= totalRounds; i++) {
+	for (roundI=1; roundI <= totalRounds; roundI++) {
 
-		bracketId = Math.pow(10, i) + prevBracketColumnId;
+		bracketId = Math.pow(10, roundI) + prevBracketColumnId;
 		prevBracketColumnId = bracketId;
 
-		var columnId = "columnId"+i;
+		var columnId = "columnId"+roundI;
 
 		var column = document.createElement("div");
 		column.classList.add(columnId);
 		layout.appendChild(column);
 
-		// add the bracket itself now
-		for (j = 0; j < bracketCounts; j++) {
+		for (j = 1; j <= bracketCounts; j++) {
 			var bracketLayout = document.createElement("div");
 			column.appendChild(bracketLayout);
 
-			if (byeCount <= 0) {
-				var bracketBox = document.createElement("div");
-				bracketBox.classList.add("bracketbox");
-				bracketLayout.appendChild(bracketBox);
+			if (!(byePositions.indexOf(j) >= 0) && roundI == 1) {
+				createPlayerBracket(bracketLayout, players[playerCount], players[playerCount-1]);
+				playerCount-=2;
 
-				var buttonLayout = document.createElement("span");
-				buttonLayout.classList.add("buttonLayout");
-				bracketBox.appendChild(buttonLayout);
+			} else if (roundI == 2) {
+				var lower = j*2;
+				var upper = lower-1;
+				var player1Name = null;
+				var player2Name = null;
 
-				var player1 = document.createElement("button");
-				player1.setAttribute("id", bracketId);
-				bracketId = bracketId + Math.pow(2, i-1);
-				player1.classList.add("player1");
-				player1.classList.add("btn");
-				player1.classList.add("btn-default");
-									// player1.setAttribute("onclick", "playerAdvance(this.id)");
-				if(playerCount >= 0) {
-					player1.setAttribute("onclick", "playerAdvance(this.id)");
-					player1.classList.add("leftBracket");
-					player1.innerHTML = players[playerCount];
+				if (byePositions.indexOf(upper) >= 0) {
+					player1Name = players[playerCount];
 					playerCount--;
-				} else {
-					player1.innerHTML = "??????";
 				}
-				buttonLayout.appendChild(player1);
-				
-				//middle margin
-				var spacing = document.createElement("div");
-				spacing.classList.add("buttonSpace");
-				buttonLayout.appendChild(spacing);
 
-				var player2 = document.createElement("button");
-				player2.setAttribute("id", bracketId);
-				bracketId = bracketId + Math.pow(2, i-1);
-				player2.classList.add("player2");
-				player2.classList.add("btn");
-				player2.classList.add("btn-default");
-									// player2.setAttribute("onclick", "playerAdvance(this.id)");
-				if(playerCount >= 0) {
-					player2.setAttribute("onclick", "playerAdvance(this.id)");
-					player2.classList.add("leftBracket");
-					player2.innerHTML = players[playerCount];
+				if (byePositions.indexOf(lower) >= 0) {
+					player2Name = players[playerCount];
 					playerCount--;
-				} else {
-					player2.innerHTML = "??????";
-				}					
-				buttonLayout.appendChild(player2);
-				
+				}
+
+				createPlayerBracket(bracketLayout, player1Name, player2Name);
+
+			} else if (roundI > 2) {
+				createPlayerBracket(bracketLayout, null, null);
 			} else {
-				byeCount--;
-				bracketId+=2;
+				bracketId = bracketId + Math.pow(2, roundI-1);
+				bracketId = bracketId + Math.pow(2, roundI-1);
 			}
 		}
+
 		bracketCounts = Math.max(bracketCounts/2, 1);
 	}
-	var columnId = "columnId"+i;
+
+	var columnId = "columnId"+roundI;
 	var column = document.createElement("div");
 	column.classList.add(columnId);
 	layout.appendChild(column);
@@ -250,7 +228,7 @@ function drawBracket(players, pairs, byes, seeds) {
 	bracketBox.classList.add("bracketbox");
 	bracketLayout.appendChild(bracketBox);
 
-	bracketId = Math.pow(10, i) + prevBracketColumnId;
+	bracketId = Math.pow(10, roundI) + prevBracketColumnId;
 	prevBracketId = bracketId;
 
 	var winner = document.createElement("button");
@@ -264,6 +242,52 @@ function drawBracket(players, pairs, byes, seeds) {
 }
 
 // Helper functions
+
+function createPlayerBracket (bracketLayout, player1Name, player2Name) {
+	console.log("called");
+	var bracketBox = document.createElement("div");
+	bracketBox.classList.add("bracketbox");
+	bracketLayout.appendChild(bracketBox);
+
+	var buttonLayout = document.createElement("span");
+	buttonLayout.classList.add("buttonLayout");
+	bracketBox.appendChild(buttonLayout);
+
+	var player1 = document.createElement("button");
+	player1.setAttribute("id", bracketId);
+	bracketId = bracketId + Math.pow(2, roundI-1);
+	player1.classList.add("player1");
+	player1.classList.add("btn");
+	player1.classList.add("btn-default");
+	if(player1Name == null) {
+		player1.innerHTML = "??????";
+	} else {
+		player1.setAttribute("onclick", "playerAdvance(this.id)");
+		player1.classList.add("leftBracket");
+		player1.innerHTML = player1Name;
+	}
+	buttonLayout.appendChild(player1);
+				
+	//middle margin
+	var spacing = document.createElement("div");
+	spacing.classList.add("buttonSpace");
+	buttonLayout.appendChild(spacing);
+
+	var player2 = document.createElement("button");
+	player2.setAttribute("id", bracketId);
+	bracketId = bracketId + Math.pow(2, roundI-1);
+	player2.classList.add("player2");
+	player2.classList.add("btn");
+	player2.classList.add("btn-default");
+	if(player2Name == null) {
+		player2.innerHTML = "??????";
+	} else {
+		player2.setAttribute("onclick", "playerAdvance(this.id)");
+		player2.classList.add("leftBracket");
+		player2.innerHTML = player2Name;
+	}					
+	buttonLayout.appendChild(player2);
+}
 
 function getParticipants() {
 	// Get participants
@@ -322,6 +346,19 @@ function findLoserId(id) {
 	} else {
 		return id - distance; // if the id is in the bottom of bracket
 	}
+}
+
+function byePosition(byeCount, bracketCount) {
+	var i = 0;
+	var byeBrackets = [];
+	while (i < byeCount) {
+		var pos = Math.floor(Math.random()*bracketCount) + 1;
+		if (byeBrackets.indexOf(pos) < 0) {
+			byeBrackets.push(pos);
+			i++;
+		}
+	}
+	return byeBrackets;
 }
 
 function getClosest(num) {
