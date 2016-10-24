@@ -244,7 +244,7 @@ function drawBracket(players, pairs, byes, seeds) {
 // Helper functions
 
 function createPlayerBracket (bracketLayout, player1Name, player2Name) {
-	console.log("called");
+	
 	var bracketBox = document.createElement("div");
 	bracketBox.classList.add("bracketbox");
 	bracketLayout.appendChild(bracketBox);
@@ -314,13 +314,12 @@ function findNextBracketId(id) {
 
 	var idLength = id.length;
 	id = parseInt(id);
-
 	var base = "1"; 
+
 	for (i = 1; i < idLength; i++) {
 		base = base + "1"; // base is 1111,,,,
 	}
 	var distance = Math.pow(2,idLength-2); // 2, 4, 8, 16,,,,
-	
 	base = id - parseInt(base); // 2 4 6 8 10 12 14 16,,,
 
 	if ((base%(distance*2)) == 0) { // eg : 4/8 8/8 12/8 16/8
@@ -349,11 +348,22 @@ function findLoserId(id) {
 }
 
 function byePosition(byeCount, bracketCount) {
+
 	var i = 0;
 	var byeBrackets = [];
 	while (i < byeCount) {
+		while ( i < Math.ceil(bracketCount/2)) { // do all lower first to prevent 2 byes in same bracket
+			var pos = Math.floor(Math.random()*bracketCount) + 1;
+			if ((byeBrackets.indexOf(pos) < 0) && (pos%2 != 0)) {
+				byeBrackets.push(pos);
+				i++;
+			}
+			if (i == byeCount ) { // if all bye are counted for, break
+				return byeBrackets;
+			}
+		}
 		var pos = Math.floor(Math.random()*bracketCount) + 1;
-		if (byeBrackets.indexOf(pos) < 0) {
+		if ((byeBrackets.indexOf(pos) < 0) && (pos%2 == 0)) { // do all upper until bye are done
 			byeBrackets.push(pos);
 			i++;
 		}
