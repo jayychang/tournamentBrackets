@@ -101,7 +101,7 @@ function generateBracket() {
 		return;
 	}
 
-	var status = confirm("Generate Bracket?");
+	var status = confirm("Generate Bracket? Once created, you can click on players to advance them until a winner is determined.");
 	if (status) {
 		document.getElementById("generate").style.display = "none";
 		getBracket(length);
@@ -239,6 +239,7 @@ function drawBracket(players, pairs, byes, seeds) {
 	winner.classList.add("btn-lg")
 	winner.innerHTML = "♛ ??????";
 	bracketBox.appendChild(winner);
+
 }
 
 // Helper functions
